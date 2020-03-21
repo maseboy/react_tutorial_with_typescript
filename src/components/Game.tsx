@@ -80,9 +80,14 @@ export class Game extends React.Component<{}, States> {
     const winner = this.calculateWinner(current.squares);
     // moveはindexの値が入る
     const moves = history.map((step, move) => {
-      const desc = move ?
+      let desc; // any型の宣言
+      desc = move ?
         'Go to move #' + move + ' (' + (step.selected % 3 + 1) + ', ' + (Math.floor(step.selected/3) + 1) + ')' :
         'Go to game start';
+
+      if (step === current) {
+        desc = <strong>{desc}</strong>
+      }
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
