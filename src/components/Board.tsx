@@ -3,74 +3,26 @@ import { Square } from "./Square";
 
 import * as styles from '../css/board.css';
 
-type SquareType = string | null;
+type SquareType = 'O' | 'X' | null;
 
-// export interface Props { value: SquareType }
-export interface States {
+export interface Props {
   squares: SquareType[];
-  xIsNext: boolean;
+  onClick: (i: number) => void;
 }
 
-export class Board extends React.Component<any, States> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true
-    }
-  }
-
-  handleClick(i: number) {
-    const squares = this.state.squares.slice();
-    // ゲームの決着が既についている or クリックされたマスが既に埋まっている
-    if (this.calculateWinner(squares) || squares[i]) {return;}
-
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext
-    });
-  }
-
+export class Board extends React.Component<Props, {}> {
   renderSquare(i: number) {
-    return <Square
-      value={this.state.squares[i]}
-      onClick={() => this.handleClick(i)}
-    />;
-  }
-
-  calculateWinner(squares: String[]) {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
-      }
-    }
-    return null;
+    return (
+      <Square
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
+      />
+    );
   }
 
   render() {
-    const winner = this.calculateWinner(this.state.squares);
-    let status;
-    if (winner) {
-      status = 'Winner: ' + winner;
-    } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
-
     return (
       <div>
-        <div className={styles.status}>{status}</div>
         <div className={styles.boardRow}>
           {this.renderSquare(0)}{this.renderSquare(1)}{this.renderSquare(2)}
         </div>
