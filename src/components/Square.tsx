@@ -2,14 +2,17 @@ import * as React from "react";
 
 import * as styles from '../css/square.css';
 
-export interface SquareProps { value: number; }
+type SquareType = string | null;
 
-export class Square extends React.Component<SquareProps, {}> {
-  render() {
-    return (
-      <button className={styles.square}>
-        {this.props.value}
-      </button>
-    );
-  }
+export interface Props {
+  value: SquareType;
+  onClick: () => void;
+}
+
+export function Square(props: Props) {
+  return (
+    <button className={styles.square} onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
 }
