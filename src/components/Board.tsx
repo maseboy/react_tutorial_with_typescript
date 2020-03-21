@@ -21,18 +21,25 @@ export class Board extends React.Component<Props, {}> {
   }
 
   render() {
+    // https://qiita.com/yumarule/items/229b3ba1a607affb738b #3
+    const rows = Array(3);
+    for (let i of [0, 1, 2]) {
+      const items = Array(3);
+      for (let j of [0, 1, 2]) {
+        const index = i*3 + j;
+        items[j] = this.renderSquare(index)
+      }
+      rows[i] = (
+        <div key={i} className={styles.boardRow}>
+          {items}
+        </div>
+      );
+    }
+
     return (
-      <div>
-        <div className={styles.boardRow}>
-          {this.renderSquare(0)}{this.renderSquare(1)}{this.renderSquare(2)}
-        </div>
-        <div className={styles.boardRow}>
-          {this.renderSquare(3)}{this.renderSquare(4)}{this.renderSquare(5)}
-        </div>
-        <div className={styles.boardRow}>
-          {this.renderSquare(6)}{this.renderSquare(7)}{this.renderSquare(8)}
-        </div>
-      </div>
+      <React.Fragment>
+        {rows}
+      </React.Fragment>
     );
   }
 }
