@@ -3,9 +3,11 @@ import { Square } from "./Square";
 
 import * as styles from '../css/board.css';
 
-export class Board extends React.Component {
+// export interface BoardProps { value: number;}
+
+export class Board extends React.Component<{}, {}> {
   renderSquare(i: number) {
-    return <Square />;
+    return <Square value={i} />;
   }
 
   render() {

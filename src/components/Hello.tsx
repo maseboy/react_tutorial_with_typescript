@@ -1,3 +1,6 @@
+// NOTE: このコンポーネントはTypeScriptのセットアップで利用したもの。
+// ReactTutorialにおいてはどこからも呼び出されない。
+
 import * as React from "react";
 
 export interface HelloProps { compiler: string; framework: string; }
