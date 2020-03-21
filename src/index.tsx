@@ -1,11 +1,20 @@
 import * as React from "react";
-// ReactDOM : https://ja.reactjs.org/docs/react-dom.html
+// NOTE: ReactDOM : https://ja.reactjs.org/docs/react-dom.html
 import * as ReactDOM from "react-dom";
+// import { Hello } from "./components/Hello";
+import { Game } from "./components/Game";
 
-import { Hello } from "./components/Hello";
+import './css/index.css';
 
-// ReactDOMのrender: ReactDOM.render(element, container[, callback])
+// NOTE: ReactDOMのrender: ReactDOM.render(element, container[, callback])
+
+// NOTE: TypeScriptのtutorial用
+// ReactDOM.render(
+//   <Hello compiler="TypeScript" framework="React" />,
+//   document.getElementById("example")
+// );
+
 ReactDOM.render(
-  <Hello compiler="TypeScript" framework="React" />,
-  document.getElementById("example")
+  <Game />,
+  document.getElementById("root")
 );
