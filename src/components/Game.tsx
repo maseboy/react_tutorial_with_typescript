@@ -36,7 +36,7 @@ export class Game extends React.Component<{}, States> {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
     // ゲームの決着が既についている or クリックされたマスが既に埋まっている
-    if (this.calculateWinner(squares) || squares[i]) {return;}
+    if (this.calculateWinner(squares).winner || squares[i]) {return;}
 
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
@@ -70,10 +70,16 @@ export class Game extends React.Component<{}, States> {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
+        return {
+          winner: squares[a],
+          line: lines[i]
+        };
       }
     }
-    return null;
+    return {
+      winner: null,
+      line: null
+    };
   }
 
   toggleSortButton() {
@@ -114,11 +120,11 @@ export class Game extends React.Component<{}, States> {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = this.calculateWinner(current.squares);
+    const result = this.calculateWinner(current.squares);
 
     let status;
-    if (winner) {
-      status = 'Winner: ' + winner;
+    if (result.winner) {
+      status = 'Winner: ' + result.winner;
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
@@ -129,6 +135,7 @@ export class Game extends React.Component<{}, States> {
           <Board
             squares={current.squares}
             onClick={(i: number) => this.handleClick(i)}
+            winLine={result.line}
           />
         </div>
         <div className={styles.gameInfo}>

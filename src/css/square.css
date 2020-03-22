@@ -20,3 +20,7 @@
 .kbdNavigation .square:focus {
   background: #ddd;
 }
+
+.highlighted {
+  background-color: dodgerblue;
+}
