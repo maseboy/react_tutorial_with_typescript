@@ -8,7 +8,7 @@ type SquareType = 'O' | 'X' | null;
 export interface Props {
   squares: SquareType[];
   onClick: (i: number) => void;
-  winLine: number[] | null;
+  winLine: (number | null)[];
 }
 
 export class Board extends React.Component<Props, {}> {

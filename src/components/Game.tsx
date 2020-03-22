@@ -56,7 +56,7 @@ export class Game extends React.Component<{}, States> {
     })
   }
 
-  calculateWinner(squares: SquareType[]) {
+  calculateWinner(squares: SquareType[]): {winner: string | null, line: (number | null)[]} {
     const lines = [
       [0, 1, 2], //横
       [3, 4, 5],
@@ -75,6 +75,13 @@ export class Game extends React.Component<{}, States> {
           line: lines[i]
         };
       }
+    }
+
+    if (squares.every(s => s)) {
+      return {
+        winner: 'DRAW',
+        line: null
+      };
     }
     return {
       winner: null,
@@ -123,8 +130,10 @@ export class Game extends React.Component<{}, States> {
     const result = this.calculateWinner(current.squares);
 
     let status;
-    if (result.winner) {
+    if (result.winner && result.winner !== 'DRAW') {
       status = 'Winner: ' + result.winner;
+    } else if (result.winner === 'DRAW') {
+      status = 'DRAW...';
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
