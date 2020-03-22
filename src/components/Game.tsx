@@ -14,6 +14,7 @@ interface States {
   history: HistoryData[];
   xIsNext: boolean;
   stepNumber: number;
+  isMovesAsc: boolean;
 }
 
 export class Game extends React.Component<{}, States> {
@@ -25,7 +26,8 @@ export class Game extends React.Component<{}, States> {
         selected: null
       }],
       xIsNext: true,
-      stepNumber: 0
+      stepNumber: 0,
+      isMovesAsc: true
     };
   }
 
@@ -74,12 +76,17 @@ export class Game extends React.Component<{}, States> {
     return null;
   }
 
-  render() {
-    const history = this.state.history;
-    const current = history[this.state.stepNumber];
-    const winner = this.calculateWinner(current.squares);
+  toggleSortButton() {
+    return (
+      <button onClick={() => this.setState({isMovesAsc: !this.state.isMovesAsc})}>
+        {this.state.isMovesAsc ? 'Sort DESC' : 'Sort ASC'}
+      </button>
+    );
+  }
+
+  renderMoves(history: HistoryData[], current: HistoryData) {
     // moveはindexの値が入る
-    const moves = history.map((step, move) => {
+    let moves = history.map((step, move) => {
       let desc; // any型の宣言
       desc = move ?
         'Go to move #' + move + ' (' + (step.selected % 3 + 1) + ', ' + (Math.floor(step.selected/3) + 1) + ')' :
@@ -95,6 +102,20 @@ export class Game extends React.Component<{}, States> {
       );
     });
 
+    if (this.state.isMovesAsc) {
+      moves = moves.reverse();
+    }
+
+    return (
+      <ol>{moves}</ol>
+    )
+  }
+
+  render() {
+    const history = this.state.history;
+    const current = history[this.state.stepNumber];
+    const winner = this.calculateWinner(current.squares);
+
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
@@ -108,11 +129,12 @@ export class Game extends React.Component<{}, States> {
           <Board
             squares={current.squares}
             onClick={(i: number) => this.handleClick(i)}
-            />
+          />
         </div>
         <div className={styles.gameInfo}>
           <div>{status}</div>
-          <ol>{moves}</ol>
+          {this.toggleSortButton()}
+          {this.renderMoves(history, current)}
         </div>
       </div>
     );
