@@ -6,7 +6,7 @@ module.exports = {
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: [".ts", ".tsx"]
+    extensions: [".wasm", ".ts", ".tsx", ".mjs", ".cjs", ".js", ".json"]
   },
 
   module: {

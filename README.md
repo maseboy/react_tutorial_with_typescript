@@ -3,7 +3,7 @@
 TypeScriptの勉強。ReactのTutorialをTypeScriptで実装する。
 
 React + TypeScirpt + Webpackの構成。
-CSSはcss-modulesで管理。
+CSSはCSS-modulesで管理。
 
 ### React
 
@@ -23,10 +23,10 @@ CSSはcss-modulesで管理。
 
 ## To Run
 
-以下のコマンドを実行すると `dist/main.js` にコンパイル後のコードが吐き出される ( see `tsconfig.json outDir` .)
+webpack-dev-serverを使用。8080番ポートを使用。
 
 ```
-npx webpack
+npm run dev
 ```
 
-その後、ブラウザでindex.htmlを表示する。
+`dist/main.js` にコンパイル後のコードが吐き出される ( see `tsconfig.json outDir` .)
