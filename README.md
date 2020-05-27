@@ -30,3 +30,5 @@ npm run dev
 ```
 
 `dist/main.js` にコンパイル後のコードが吐き出される ( see `tsconfig.json outDir` .)
+
+##編集高木舞
